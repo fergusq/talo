@@ -11,7 +11,7 @@ public class Talo {
 		game.addPlayer(MaxPlayer.class);
 		game.addPlayer(RandPlayer.class);
 		game.addPlayer(Rand100Player.class);
-		game.addPlayer(HighBot.class);
+		game.addPlayer(MediumBot.class);
 		game.addPlayer(Kymmenes.class);
 		game.play(1000);
 		game.printScores();
