@@ -31,6 +31,6 @@ public class Diferencia implements Player {
 		
 		Collections.sort(guesses);
 		
-		return guesses.get(guesses.size()/2);
+		return guesses.get(guesses.size()/2 - 1);
 	}	
 }
