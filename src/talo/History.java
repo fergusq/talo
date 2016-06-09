@@ -17,6 +17,11 @@ public class History {
 			this.wish = wish;
 			this.roundPoints = roundPoints;
 		}
+		
+		@Override
+		public String toString() {
+			return "[" + wish + ", " + roundPoints + "]";
+		}
 	}
 	
 	private List<Map<Class<? extends Player>, Wish>> wishesOnRounds = new ArrayList<>();
