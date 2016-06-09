@@ -9,13 +9,14 @@ import talo.util.Effect;
 public class Game {
 	
 	private ArrayList<Class<? extends Player>> playerClasses = new ArrayList<>();
-	private History history = new History();
+	private History history;
 	
 	public void addPlayer(Class<? extends Player> player) {
 		playerClasses.add(player);
 	}
 	
 	public void play(int rounds) {
+		history = new History();
 		class WishPair {
 			Player p;
 			Integer w;
@@ -48,7 +49,7 @@ public class Game {
 	
 	public void printScores() {
 		System.out.println(Effect.get().bold()
-			+ String.format("%1$-25s │ %2$13s │ %3$13s │ %4$13s │ %5$13s",
+			+ String.format("%1$-25s │ %2$13s │ %3$14s │ %4$13s │ %5$13s",
 					"BOT", "AVG WISH", "TOTAL WISH", "AVG POINTS", "TOTAL POINTS")
 			+ Effect.reset());
 		
@@ -60,7 +61,7 @@ public class Game {
 			Effect.Color bgcolor = details == null ? Effect.Color.BLACK : details.color();
 			String name = details == null ? score.getKey().getSimpleName() : details.name();
 			System.out.println(Effect.get().bgcolor(bgcolor).color(Effect.Color.WHITE)
-				+ String.format("%1$-25s │ %2$13d │ %3$13d │ %4$13d │ %5$13d", name,
+				+ String.format("%1$-25s │ %2$13d │ %3$14d │ %4$13d │ %5$13d", name,
 						history.getAverageWish(score.getKey()),
 						history.getTotalWish(score.getKey()),
 						history.getAveragePoints(score.getKey()),
