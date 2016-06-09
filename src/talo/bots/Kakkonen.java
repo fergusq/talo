@@ -13,7 +13,7 @@ public class Kakkonen implements Player {
 				r.sort((a, b) -> b.roundPoints-a.roundPoints);
 				return r.get(1).roundPoints;
 			},
-			() -> 1
+			() -> 100
 		);
 		return result;
 	}

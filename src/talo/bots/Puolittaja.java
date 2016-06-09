@@ -7,7 +7,7 @@ import talo.util.Effect;
 
 @PlayerDetails(name="Puolittaja", color=Effect.Color.CYAN)
 public class Puolittaja implements Player {
-	int edellinenArvaus = 20;
+	int edellinenArvaus = 100;
 	// ei pisteitä -> puolittaa
 	// saa pisteitä ja paras -> puoleen väliin toiseksi parasta
 	// saa pisteitä ja ei paras -> puoleen väliin itseä ja parasta
