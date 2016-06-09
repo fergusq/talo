@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ ! -f "bin" ];
+if [ ! -d "bin" ];
 then
 	mkdir bin
 fi
