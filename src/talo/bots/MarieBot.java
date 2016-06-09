@@ -1,6 +1,5 @@
 package talo.bots;
 
-import java.util.Optional;
 import java.util.stream.IntStream;
 
 import talo.History;
@@ -17,15 +16,10 @@ public class MarieBot implements Player {
 	@Override
 	public int getWish(History history) {
 		return IntStream.range(0, history.rounds())
-			.mapToObj(history::getWishesOnRound)
-			.map(l -> l.stream()
-					.reduce((w1, w2) -> w1.roundPoints > w2.roundPoints ? w1 : w2))
-			.filter(Optional::isPresent)
-			.map(Optional::get)
-			.sorted((w1, w2) -> w1.roundPoints > w2.roundPoints ? 1 : -1)
-			.findFirst()
-			.map(w -> w.wish)
-			.orElse(163); // Marie-keksien hinta eräässä kaupassa
+				.mapToObj(history::getWishesOnRound)
+				.map(l -> l.stream().mapToInt(w -> w.roundPoints).max())
+				.mapToInt(o -> o.isPresent() ? o.getAsInt() : Integer.MAX_VALUE)
+				.min().orElse(163); // Marie-keksien hinta eräässä kaupassa
 	}
 	
 }
