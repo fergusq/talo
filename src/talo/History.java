@@ -50,10 +50,17 @@ public class History {
 	}
 	
 	long getTotalWish(Class<? extends Player> player) {
-		long sum = wishesOnRounds.stream()
-				.mapToLong(m -> m.containsKey(player) ? m.get(player).wish : 0)
+		long sum = wishesOnRounds.stream().limit(rounds())
+				.mapToLong(m -> m.get(player).wish)
 				.sum();
 		return sum;
+	}
+	
+	double getWinningPercent(Class<? extends Player> player) {
+		long sum = wishesOnRounds.stream().limit(rounds())
+				.filter(m -> m.get(player).roundPoints > 0)
+				.count();
+		return (double) sum / rounds() * 100;
 	}
 	
 	private Map<Class<? extends Player>, Wish> currentRound() {

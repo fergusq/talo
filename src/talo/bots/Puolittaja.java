@@ -5,9 +5,11 @@ import talo.PlayerDetails;
 import talo.History;
 import talo.util.Effect;
 
+import java.util.Random;
+
 @PlayerDetails(name="Puolittaja", color=Effect.Color.CYAN)
 public class Puolittaja implements Player {
-	int edellinenArvaus = 100;
+	int edellinenArvaus = (new Random()).nextInt(1000);
 	// ei pisteitä -> puolittaa
 	// saa pisteitä ja paras -> puoleen väliin toiseksi parasta
 	// saa pisteitä ja ei paras -> puoleen väliin itseä ja parasta

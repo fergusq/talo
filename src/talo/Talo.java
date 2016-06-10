@@ -13,7 +13,7 @@ public class Talo {
 		game.addPlayer(Rand100Player.class);
 		game.addPlayer(MediumBot.class);
 		game.addPlayer(Kymmenes.class);
-		game.play(1000);
+		game.play(1, 1000);
 		game.printScores();
 	}
 }

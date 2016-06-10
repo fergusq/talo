@@ -18,7 +18,7 @@ public class Diferencia implements Player {
 
 	@Override
 	public int getWish(History history) {
-		if(history.rounds() < 2) { return 1 + new Random().nextInt(9); }
+		if(history.rounds() < 2) { return (new Random()).nextInt(1000) + new Random().nextInt(9); }
 		
 		List<Wish> round1 = history.getWishesOnRound(history.rounds()-2);
 		List<Wish> round2 = history.getWishesOnRound(history.rounds()-1);

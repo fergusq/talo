@@ -15,7 +15,8 @@ public class Game {
 		playerClasses.add(player);
 	}
 	
-	public void play(int rounds) {
+	public void play(int game, int rounds) {
+		System.out.print("[Game " + game + "]");
 		history = new History();
 		class WishPair {
 			Player p;
@@ -31,6 +32,7 @@ public class Game {
 			} catch (Exception e) {}
 		}
 		for (int i = 0; i < rounds; i++) {
+			System.out.print(String.format("\r[Game %s] %d/%d (%.2f %%)", game, i+1, rounds, 100d*(i+1)/rounds));
 			history.nextRound();
 			ArrayList<WishPair> wishes = new ArrayList<>();
 			for (Player p : players) wishes.add(new WishPair(p, p.getWish(history)));
@@ -45,12 +47,13 @@ public class Game {
 			}
 		}
 		history.nextRound();
+		System.out.println();
 	}
 	
 	public void printScores() {
 		System.out.println(Effect.get().bold()
-			+ String.format("%1$-25s │ %2$13s │ %3$14s │ %4$13s │ %5$13s",
-					"BOT", "AVG WISH", "TOTAL WISH", "AVG POINTS", "TOTAL POINTS")
+			+ String.format("%1$-25s │ %2$12s │ %3$10s │ %4$14s │ %5$10s | %6$6s",
+					"BOT", "TOTAL POINTS", "AVG POINTS", "TOTAL WISH", "AVG WISH", "WIN %")
 			+ Effect.reset());
 		
 		List<Map.Entry<Class<? extends Player>, Long>> entries = new ArrayList<>(history.getPointsMap().entrySet());
@@ -61,11 +64,12 @@ public class Game {
 			Effect.Color bgcolor = details == null ? Effect.Color.BLACK : details.color();
 			String name = details == null ? score.getKey().getSimpleName() : details.name();
 			System.out.println(Effect.get().bgcolor(bgcolor).color(Effect.Color.WHITE)
-				+ String.format("%1$-25s │ %2$13d │ %3$14d │ %4$13d │ %5$13d", name,
-						history.getAverageWish(score.getKey()),
-						history.getTotalWish(score.getKey()),
+				+ String.format("%1$-25s │ %2$12d │ %3$10d │ %4$14d │ %5$10d | %6$6.2f", name,
+						score.getValue(),
 						history.getAveragePoints(score.getKey()),
-						score.getValue())
+						history.getTotalWish(score.getKey()),
+						history.getAverageWish(score.getKey()),
+						history.getWinningPercent(score.getKey()))
 				+ Effect.reset());
 		}
 	}

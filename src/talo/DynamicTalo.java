@@ -39,7 +39,7 @@ public class DynamicTalo {
 		}
 		
 		for (int i = 0; i < games; i++) {
-			game.play(rounds);
+			game.play(i+1, rounds);
 			game.printScores();
 		}
 	}
