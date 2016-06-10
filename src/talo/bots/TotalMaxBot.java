@@ -28,4 +28,8 @@ public class TotalMaxBot implements Player {
 		}
 		return sum == 0 ? (new Random()).nextInt(1000) : (int) (finalSum / 10 * factor);
 	}
+	
+	public String getComment() {
+		return ""+factor;
+	}
 }

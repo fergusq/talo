@@ -20,7 +20,7 @@ public class WhatIGetIsWhatIWish implements Player {
 					pisteet += edellinenArvaus;
 				}
 				edellinenArvaus = pisteet / kierros;
-				return edellinenArvaus;
+				return edellinenArvaus + 1;
 			},
 			() -> (new Random()).nextInt(1000)
 		);
