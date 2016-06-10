@@ -41,12 +41,12 @@ public class History {
 		return points.get(player);
 	}
 	
-	int getAveragePoints(Class<? extends Player> player) {
-		return (int) (getPoints(player) / rounds());
+	double getAveragePoints(Class<? extends Player> player) {
+		return (double) getPoints(player) / rounds();
 	}
 	
-	int getAverageWish(Class<? extends Player> player) {
-		return (int) (getTotalWish(player) / rounds());
+	double getAverageWish(Class<? extends Player> player) {
+		return (double) getTotalWish(player) / rounds();
 	}
 	
 	long getTotalWish(Class<? extends Player> player) {
