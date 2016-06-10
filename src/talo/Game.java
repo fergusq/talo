@@ -57,7 +57,7 @@ public class Game {
 	
 	public void printScores() {
 		System.out.println(Effect.get().bold()
-			+ String.format("%1$-25s │ %2$12s │ %3$10s │ %4$14s │ %5$13s | %6$6s",
+			+ String.format("%1$-25s │ %2$12s │ %3$10s │ %4$14s │ %5$13s │ %6$6s",
 					"BOT", "TOTAL POINTS", "AVG POINTS", "TOTAL WISH", "AVG WISH", "WIN %")
 			+ Effect.reset());
 		
@@ -69,7 +69,7 @@ public class Game {
 			Effect.Color bgcolor = details == null ? Effect.Color.BLACK : details.color();
 			String name = details == null ? score.getKey().getSimpleName() : details.name();
 			System.out.println(Effect.get().bgcolor(bgcolor).color(Effect.Color.WHITE)
-				+ String.format("%1$-25s │ %2$12d │ %3$10.2f │ %4$14d │ %5$13.2f | %6$6.2f", name,
+				+ String.format("%1$-25s │ %2$12d │ %3$10.2f │ %4$14d │ %5$13.2f │ %6$6.2f", name,
 						score.getValue(),
 						history.getAveragePoints(score.getKey()),
 						history.getTotalWish(score.getKey()),
