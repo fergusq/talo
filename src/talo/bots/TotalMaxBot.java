@@ -20,7 +20,7 @@ public class TotalMaxBot implements Player {
 				.mapToInt(w -> w.roundPoints).max().getAsInt();
 		}
 		final long finalSum = sum;
-		if (history.rounds() % 10 == 0) {
+		if (history.rounds() % 2 == 0) {
 			factor = history.withLastRound(
 				r -> (double) r.stream().mapToInt(w -> w.roundPoints).max().orElse(1) / finalSum * 10,
 				() -> 1.5

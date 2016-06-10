@@ -32,10 +32,13 @@ public class Game {
 			} catch (Exception e) {}
 		}
 		for (int i = 0; i < rounds; i++) {
-			System.out.print(String.format("\r[Game %s] %d/%d (%.2f %%)", game, i+1, rounds, 100d*(i+1)/rounds));
 			history.nextRound();
 			ArrayList<WishPair> wishes = new ArrayList<>();
-			for (Player p : players) wishes.add(new WishPair(p, p.getWish(history)));
+			for (Player p : players) {
+				int wish = p.getWish(history);
+				if (wish < 0) wish = 0;
+				wishes.add(new WishPair(p, wish));
+			}
 			wishes.sort((w1, w2) -> w1.w - w2.w);
 			int median = wishes.get((wishes.size() - 1) / 2).w;
 			for (WishPair w : wishes) {
@@ -45,6 +48,8 @@ public class Game {
 					history.addPoints(w.p.getClass(), w.w, 0);
 				}
 			}
+			System.out.print(String.format("\r[Game %s] %d/%d (%.2f %%) : %d",
+				game, i+1, rounds, 100d*(i+1)/rounds, median));
 		}
 		history.nextRound();
 		System.out.println();
