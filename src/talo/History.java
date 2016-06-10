@@ -77,7 +77,7 @@ public class History {
 	}
 	
 	Map<Class<? extends Player>, Wish> getWishesMapOnRound(int round) {
-		return wishesOnRounds.get(0);
+		return wishesOnRounds.get(round);
 	}
 	
 	public List<Wish> getWishesOnRound(int round) {

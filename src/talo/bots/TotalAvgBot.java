@@ -20,12 +20,16 @@ public class TotalAvgBot implements Player {
 				.mapToInt(w -> w.roundPoints).average().getAsDouble();
 		}
 		final long finalSum = sum;
-		if (history.rounds() % 10 == 0) {
+		if (finalSum != 0 && history.rounds() % 10 == 0) {
 			factor = history.withLastRound(
 				r -> (double) r.stream().mapToInt(w -> w.roundPoints).max().orElse(1) / finalSum * 10,
 				() -> 1.5
 			);
 		}
 		return sum == 0 ? (new Random()).nextInt(1000) : (int) (finalSum / 10 * factor);
+	}
+	
+	public String getComment() {
+		return ""+factor;
 	}
 }
