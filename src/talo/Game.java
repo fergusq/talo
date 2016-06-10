@@ -63,7 +63,10 @@ public class Game {
 	public void printScores() {
 		System.out.println(Effect.get().bold()
 			+ String.format("%1$-25s │ %2$12s │ %3$10s │ %4$14s │ %5$13s │ %6$6s │ %7$15s",
-					"BOT", "TOTAL POINTS", "AVG POINTS", "TOTAL WISH", "AVG WISH", "WIN %", "COMMENT")
+					"BOT",
+					"TOTAL POINTS", "AVG POINTS",
+					"TOTAL WISH", "AVG WISH",
+					"WIN %", "COMMENT")
 			+ Effect.reset());
 		
 		List<Map.Entry<Class<? extends Player>, Long>> entries = new ArrayList<>(history.getPointsMap().entrySet());

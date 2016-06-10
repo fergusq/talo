@@ -30,6 +30,6 @@ public class TotalAvgBot implements Player {
 	}
 	
 	public String getComment() {
-		return ""+factor;
+		return String.format("%.5f", factor);
 	}
 }
