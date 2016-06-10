@@ -13,7 +13,19 @@ public class DynamicTalo {
 	
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
-		Game game = new Game();
+		
+		int games = 1, rounds = 1000;
+		try (Scanner in = new Scanner(System.in)) {
+			System.out.print("Games [1]: ");
+			String next = in.nextLine();
+			games = next.matches("[0-9]+") ? Integer.parseInt(next) : 1;
+			
+			System.out.print("Rounds per game (" + games + (games == 1 ? " game" : " games") + ") [1000]: ");
+			next = in.nextLine();
+			rounds = next.matches("[0-9]+") ? Integer.parseInt(next) : 1000;
+		}
+		
+		Game game = new Game(games);
 		
 		try {
 			Path bots = Paths.get("bin", "talo", "bots");
@@ -27,20 +39,9 @@ public class DynamicTalo {
 			e.printStackTrace();
 		}
 		
-		int games = 1, rounds = 1000;
-		try (Scanner in = new Scanner(System.in)) {
-			System.out.print("Games [1]: ");
-			String next = in.nextLine();
-			games = next.matches("[0-9]+") ? Integer.parseInt(next) : 1;
-			
-			System.out.print("Rounds per game (" + games + (games == 1 ? " game" : " games") + ") [1000]: ");
-			next = in.nextLine();
-			rounds = next.matches("[0-9]+") ? Integer.parseInt(next) : 1000;
-		}
-		
 		for (int i = 0; i < games; i++) {
-			game.play(i+1, rounds);
-			game.printScores();
+			game.play(i, rounds);
 		}
+		game.printScores();
 	}
 }

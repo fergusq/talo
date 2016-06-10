@@ -57,10 +57,14 @@ public class History {
 	}
 	
 	double getWinningPercent(Class<? extends Player> player) {
-		long sum = wishesOnRounds.stream().limit(rounds())
+		long sum = getRoundsWon(player);
+		return (double) sum / rounds() * 100;
+	}
+	
+	long getRoundsWon(Class<? extends Player> player) {
+		return wishesOnRounds.stream().limit(rounds())
 				.filter(m -> m.get(player).roundPoints > 0)
 				.count();
-		return (double) sum / rounds() * 100;
 	}
 	
 	private Map<Class<? extends Player>, Wish> currentRound() {
