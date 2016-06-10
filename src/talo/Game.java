@@ -65,7 +65,7 @@ public class Game {
 		System.out.println();
 	}
 	
-	class Scoreboard {
+	private class Scoreboard {
 		private class Column {
 			private String name, nameFormat, dataFormat;
 			private Function<Class<? extends Player>, Object> data;
