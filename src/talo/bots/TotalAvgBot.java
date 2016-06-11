@@ -27,7 +27,7 @@ public class TotalAvgBot implements Player {
 				() -> 1.5
 			);
 		}
-		return sum == 0 ? (new Random()).nextInt(1000) : (int) (finalSum / i * factor);
+		return sum == 0 ? (new Random()).nextInt(1000) : (Math.max(1, (int) (finalSum / i * factor)));
 	}
 	
 	public String getComment() {
