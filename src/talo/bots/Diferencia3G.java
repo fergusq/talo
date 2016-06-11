@@ -20,7 +20,7 @@ public class Diferencia3G implements Player {
 
 	@Override
 	public int getWish(History history) {
-		if(history.rounds() == 0) { return 500 + new Random().nextInt(500); }
+		if(history.rounds() == 0) { return 250; }
 		
 		if(history.rounds() == 1) {
 			List<Wish> wishes = history.getWishesOnRound(0);
