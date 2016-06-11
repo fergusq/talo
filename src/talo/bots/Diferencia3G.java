@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import talo.Competitor;
 import talo.History;
 import talo.History.Wish;
 import talo.Player;
@@ -14,6 +15,7 @@ import talo.util.Effect;
 
 /** The first player to beat Diferencia.*/
 @PlayerDetails(name="Diferencia3G", color=Effect.Color.RED)
+@Competitor
 public class Diferencia3G implements Player {
 
 	@Override

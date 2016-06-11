@@ -134,8 +134,17 @@ public class Game {
 				
 				String dataFormat = columns.stream().map(c -> c.dataFormat).collect(joining(" │ "));
 				Object[] datas = columns.stream().map(c -> c.data.apply(score.getKey())).toArray();
+				Effect effect = Effect.get().bgcolor(bgcolor).color(Effect.Color.WHITE);
 				
-				System.out.println(Effect.get().bgcolor(bgcolor).color(Effect.Color.WHITE)
+				if(!score.getKey().isAnnotationPresent(Competitor.class)) {
+					effect = Effect.get().color(bgcolor);
+					
+					if(bgcolor == Effect.Color.BLACK) {
+						effect = Effect.get().invert();
+					}
+				}
+				
+				System.out.println(effect
 					+ String.format(dataFormat, datas)
 					+ Effect.reset());
 			}
@@ -146,6 +155,7 @@ public class Game {
 		Scoreboard board = new Scoreboard();
 		board.addColumn("%-25s", "%-25s", "BOT", c -> {
 			PlayerDetails details = c.getAnnotation(PlayerDetails.class);
+			
 			return details == null ? c.getSimpleName() : details.name();
 		});
 		board.addColumn("%12s", "%12d", "TOTAL POINTS",

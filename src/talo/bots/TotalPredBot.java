@@ -1,16 +1,16 @@
 package talo.bots;
 
+import talo.Competitor;
+import talo.History;
 import talo.Player;
 import talo.PlayerDetails;
-import talo.History;
 import talo.util.Effect;
-
-import java.util.Random;
 
 /**
  * Wishes to have a house that is a little better than the previous best house.
  */
 @PlayerDetails(name="Paras++", color=Effect.Color.BLUE)
+@Competitor
 public class TotalPredBot implements Player {
 	public int getWish(History history) {
 		if (history.rounds() < 3) return (3-history.rounds())*100;
