@@ -21,6 +21,4 @@ public class Satan implements Player {
 				() -> 666
 			);
 	}
-	
-	
 }

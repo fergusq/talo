@@ -26,11 +26,11 @@ public class TotalMaxBot implements Player {
 				() -> 1.5
 			);
 		}
-		if (history.rounds() < 10) {
-			return (int) (double) history.withLastRound(
+		if (history.rounds() < 500) {
+			return (int) Math.ceil(history.withLastRound(
 				r -> r.stream().mapToInt(w -> w.roundPoints).max().orElse(10) * 0.9,
 				() -> 10d
-			);
+			));
 		}
 		return sum == 0 ? (new Random()).nextInt(1000) : (int) (finalSum / 10 * factor);
 	}

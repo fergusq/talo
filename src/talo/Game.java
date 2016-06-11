@@ -9,6 +9,8 @@ import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.joining;
 import java.util.function.Function;
 
+import java.io.FileWriter;
+
 import talo.util.Effect;
 
 public class Game {
@@ -27,47 +29,67 @@ public class Game {
 	}
 	
 	public void play(int game, int rounds) {
-		System.out.print("[Game " + (game+1) + "]");
-		history[game] = new History();
-		class WishPair {
-			Player p;
-			Integer w;
-			WishPair(Player p_, Integer w_) {
-				p = p_; w = w_;
-			}
-		}
-		List<Player> players = new ArrayList<>();
-		for (Class<? extends Player> pc : playerClasses) {
-			try {
-				players.add(pc.newInstance());
-			} catch (Exception e) {}
-		}
-		for (int i = 0; i < rounds; i++) {
-			history[game].nextRound();
-			ArrayList<WishPair> wishes = new ArrayList<>();
-			for (Player p : players) {
-				int wish = p.getWish(history[game]);
-				this.wishes.put(p.getClass(), wish);
-				if (wish < 0) wish = 0;
-				wishes.add(new WishPair(p, wish));
-			}
-			wishes.sort((w1, w2) -> w1.w - w2.w);
-			int median = wishes.get((wishes.size() - 1) / 2).w;
-			for (WishPair w : wishes) {
-				if (w.w <= median) {
-					history[game].addPoints(w.p.getClass(), w.w, w.w);
-				} else {
-					history[game].addPoints(w.p.getClass(), w.w, 0);
+		try {
+			System.out.print("[Game " + (game+1) + "]");
+			history[game] = new History();
+			class WishPair {
+				Player p;
+				Integer w;
+				WishPair(Player p_, Integer w_) {
+					p = p_; w = w_;
 				}
 			}
-			System.out.print(String.format("\r[Game %s] %d/%d (%.2f %%) : %d",
-				game+1, i+1, rounds, 100d*(i+1)/rounds, median));
+			List<Player> players = new ArrayList<>();
+			List<FileWriter> plots = new ArrayList<>();
+			int i_ = 0;
+			for (Class<? extends Player> pc : playerClasses) {
+				try {
+					players.add(pc.newInstance());
+				} catch (Exception e) {}
+				plots.add(new FileWriter(i_++ +".txt"));
+			}
+			for (int i = 0; i < rounds; i++) {
+				history[game].nextRound();
+				ArrayList<WishPair> wishes = new ArrayList<>();
+				for (Player p : players) {
+					int wish = p.getWish(history[game]);
+					plots.get(players.indexOf(p)).write(wish+"\n");
+					this.wishes.put(p.getClass(), wish);
+					if (wish < 0) wish = 0;
+					wishes.add(new WishPair(p, wish));
+				}
+				wishes.sort((w1, w2) -> w1.w - w2.w);
+				int median = wishes.get((wishes.size() - 1) / 2).w;
+				for (WishPair w : wishes) {
+					if (w.w <= median) {
+						history[game].addPoints(w.p.getClass(), w.w, w.w);
+					} else {
+						history[game].addPoints(w.p.getClass(), w.w, 0);
+					}
+				}
+				System.out.print(String.format("\r[Game %s] %d/%d (%.2f %%) : %d",
+					game+1, i+1, rounds, 100d*(i+1)/rounds, median));
+			}
+			for (Player p : players) {
+				comments.put(p.getClass(), p.getComment());
+			}
+			for (FileWriter fw : plots) fw.close();
+			
+			FileWriter fw = new FileWriter("plot.txt");
+			
+			for (int i = 0; i < players.size(); i++) {
+				if (i == 0) fw.write("plot ");
+				else fw.write(", ");
+				fw.write("\""+i+".txt\" title '"+playerClasses.get(i).getSimpleName()+"' with lines");
+			}
+			
+			fw.close();
+			
+			history[game].nextRound();
+			System.out.println();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
-		for (Player p : players) {
-			comments.put(p.getClass(), p.getComment());
-		}
-		history[game].nextRound();
-		System.out.println();
 	}
 	
 	private class Scoreboard {
